@@ -1,6 +1,6 @@
+import Navigation from "@/components/navigation";
 import "@/styles/globals.css";
-
-import { GeistSans } from "geist/font/sans";
+import { inter } from "@/app/fonts";
 
 export const metadata = {
   title: "Create T3 App",
@@ -14,8 +14,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
-      <body>{children}</body>
+    <html lang="en">
+      <body className={`${inter.className}`}>
+        <Navigation />
+        {children}
+      </body>
     </html>
   );
 }
