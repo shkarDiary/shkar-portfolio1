@@ -2,7 +2,7 @@
 import { noto } from "@/app/fonts";
 import Logo from "./logo";
 import { useState } from "react";
-import { useAnimate } from "framer-motion";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
@@ -14,43 +14,52 @@ const navItems = [
   "بەرنامەکان",
   "گەلەری",
   "وەرزش",
-  "ئێن ئاڕ تی دوو",
 ];
-
+const barClassName = "w-[35px] h-[5px] bg-black my-[4px] ";
 function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scope, animate] = useAnimate();
 
-  const onNavBtnClick = async () => {
-    setIsOpen(!isOpen);
-    if (isOpen) {
-      await animate([[".top", { rotate: 0, y: 0 }, { duration: 0.5 }]]);
-      await animate([[".middle", { opacity: 100 }, { duration: 0.2 }]]);
-      await animate([[".bottom", { rotate: 0, y: 0 }, { duration: 0.5 }]]);
-      await animate([
-        [".container", { opacity: 0, display: "none" }, { duration: 0.6 }],
-      ]);
-    } else if (!isOpen) {
-      await animate([[".top", { rotate: 60, y: 6.5 }, { duration: 0.5 }]]);
-      await animate([[".middle", { opacity: 0 }, { duration: 0.2 }]]);
-      await animate([[".bottom", { rotate: -60, y: -6.5 }, { duration: 0.5 }]]);
-      await animate([
-        [".container", { opacity: 100, display: "block" }, { duration: 0.6 }],
-      ]);
-    }
-  };
+  const toggleOpen = () => setIsOpen(!isOpen);
 
   return (
-    <nav ref={scope} className="flex flex-col gap-6 px-8 py-4 ">
+    <nav className="flex flex-col justify-center gap-6 px-8 py-4 ">
       <div className="flex justify-between">
         <Logo />
-        <button type="button" title="menu" onClick={onNavBtnClick}>
-          <div className="top h-[0.18rem] w-6 bg-black  " />
-          <div className="middle my-1 h-[0.18rem] w-6 bg-black " />
-          <div className="bottom h-[0.18rem] w-6 bg-black " />
-        </button>
+        <div
+          className="cursor-pointer0 flex h-[50px] w-[80px] flex-col items-center justify-center "
+          onClick={toggleOpen}
+        >
+          <motion.div
+            className={barClassName}
+            animate={{
+              rotate: isOpen ? 45 : 0,
+              y: isOpen ? 13 : 0,
+            }}
+            transition={{ duration: 0.3 }}
+          />
+          <motion.div
+            className={barClassName}
+            animate={{
+              opacity: isOpen ? 0 : 1,
+            }}
+            transition={{ duration: 0.3 }}
+          />
+          <motion.div
+            className={barClassName}
+            animate={{
+              rotate: isOpen ? -45 : 0,
+              y: isOpen ? -13 : 0,
+            }}
+            transition={{ duration: 0.3 }}
+          />
+        </div>
       </div>
-      <ul
+      <motion.ul
+        animate={{
+          opacity: isOpen ? 100 : 0,
+          display: isOpen ? "block" : "none",
+        }}
+        transition={{ duration: 0.3 }}
         className={cn(
           `container hidden space-y-6 text-center text-2xl md:flex`,
           noto.className,
@@ -61,7 +70,7 @@ function Navigation() {
             {item}
           </Link>
         ))}
-      </ul>
+      </motion.ul>
     </nav>
   );
 }
