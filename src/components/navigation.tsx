@@ -2,7 +2,7 @@
 import { noto } from "@/app/fonts";
 import Logo from "./logo";
 import { useState } from "react";
-import { motion, useAnimate } from "framer-motion";
+import { useAnimate } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
