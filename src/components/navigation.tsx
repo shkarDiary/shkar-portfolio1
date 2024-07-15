@@ -21,20 +21,20 @@ function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scope, animate] = useAnimate();
 
-  const onNavBtnClick = () => {
+  const onNavBtnClick = async () => {
     setIsOpen(!isOpen);
     if (isOpen) {
-      animate([[".top", { rotate: 0, y: 0 }, { duration: 0.5 }]]);
-      animate([[".middle", { opacity: 100 }, { duration: 0.2 }]]);
-      animate([[".bottom", { rotate: 0, y: 0 }, { duration: 0.5 }]]);
-      animate([
+      await animate([[".top", { rotate: 0, y: 0 }, { duration: 0.5 }]]);
+      await animate([[".middle", { opacity: 100 }, { duration: 0.2 }]]);
+      await animate([[".bottom", { rotate: 0, y: 0 }, { duration: 0.5 }]]);
+      await animate([
         [".container", { opacity: 0, display: "none" }, { duration: 0.6 }],
       ]);
     } else if (!isOpen) {
-      animate([[".top", { rotate: 60, y: 6.5 }, { duration: 0.5 }]]);
-      animate([[".middle", { opacity: 0 }, { duration: 0.2 }]]);
-      animate([[".bottom", { rotate: -60, y: -6.5 }, { duration: 0.5 }]]);
-      animate([
+      await animate([[".top", { rotate: 60, y: 6.5 }, { duration: 0.5 }]]);
+      await animate([[".middle", { opacity: 0 }, { duration: 0.2 }]]);
+      await animate([[".bottom", { rotate: -60, y: -6.5 }, { duration: 0.5 }]]);
+      await animate([
         [".container", { opacity: 100, display: "block" }, { duration: 0.6 }],
       ]);
     }
