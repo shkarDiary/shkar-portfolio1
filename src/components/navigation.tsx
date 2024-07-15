@@ -1,12 +1,14 @@
 "use client";
 import { noto } from "@/app/fonts";
 import Logo from "./logo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 const navItems = [
+  "سەرەکی",
   "هەواڵ",
   "راپۆرت",
   "شیکردنەوە",
@@ -15,18 +17,28 @@ const navItems = [
   "گەلەری",
   "وەرزش",
 ];
-const barClassName = "w-[35px] h-[5px] bg-black my-[4px] ";
+const barClassName = "w-[35px] h-[5px] bg-white my-[4px] ";
 function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const size = useMediaQuery();
 
   const toggleOpen = () => setIsOpen(!isOpen);
 
+  useEffect(() => {
+    if (size === "lg") {
+      setIsOpen(true);
+    }
+  }, [size]);
+
   return (
-    <nav className="flex flex-col justify-center gap-6 px-8 py-4 ">
-      <div className="flex justify-between">
+    <nav
+      className="flex   w-screen flex-col gap-6 overflow-hidden bg-primary px-8
+    py-4 text-white md:h-32 md:flex-row md:items-center md:justify-around md:px-12 "
+    >
+      <div className="flex justify-between ">
         <Logo />
         <div
-          className="cursor-pointer0 flex h-[50px] w-[80px] flex-col items-center justify-center "
+          className="flex h-[50px] w-[80px] cursor-pointer flex-col items-center justify-center md:hidden "
           onClick={toggleOpen}
         >
           <motion.div
@@ -54,23 +66,30 @@ function Navigation() {
           />
         </div>
       </div>
-      <motion.ul
+      <motion.div
         animate={{
           opacity: isOpen ? 100 : 0,
-          display: isOpen ? "block" : "none",
+          display: isOpen ? "flex" : "none",
+          height: isOpen ? "55vh" : "0",
+        }}
+        initial={{
+          opacity: 0,
+          display: "none",
+          height: 0,
         }}
         transition={{ duration: 0.3 }}
         className={cn(
-          `container hidden space-y-6 text-center text-2xl md:flex`,
+          `w-full flex-col items-center space-y-6 overflow-hidden text-center
+          text-2xl md:w-auto  md:flex-row-reverse md:gap-8 md:space-y-0 md:text-3xl `,
           noto.className,
         )}
       >
         {navItems.map((item, index) => (
-          <Link className="block" href={""} key={index}>
+          <Link className="" href={""} key={index}>
             {item}
           </Link>
         ))}
-      </motion.ul>
+      </motion.div>
     </nav>
   );
 }
