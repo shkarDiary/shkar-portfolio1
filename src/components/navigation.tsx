@@ -41,18 +41,20 @@ function Navigation() {
         animate={{
           opacity: isOpen ? 100 : 0,
           display: isOpen ? "flex" : "none",
-          height: isOpen ? "38rem" : "0",
+          height: isOpen ? "36rem" : "0",
           width: isOpen ? "100%" : "90%",
+          scale: isOpen ? 1 : 0.8,
         }}
         initial={{
           opacity: 0,
           display: "none",
           height: 0,
           width: "90%",
+          scale: 1,
         }}
         transition={{ duration: 0.3 }}
         className="fixed bottom-0  hidden w-full flex-col  gap-3
-        rounded-md bg-primary/95 px-12 py-6 text-2xl text-primary-foreground"
+        rounded-md bg-primary/95 px-12 py-6 text-xl text-primary-foreground"
       >
         {navItems.map((item, index) => (
           <div className="flex w-full flex-col items-end " key={index}>
