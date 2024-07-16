@@ -17,7 +17,7 @@ const navItems = [
   "گەلەری",
   "وەرزش",
 ];
-const barClassName = "w-[35px] h-[5px] bg-white my-[4px] ";
+const barClassName = "w-[30px] h-[2px] bg-white my-[4px] ";
 function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const size = useMediaQuery();
@@ -32,10 +32,38 @@ function Navigation() {
 
   return (
     <nav
-      className="fixed bottom-0 flex w-screen flex-col  gap-6 overflow-hidden bg-primary px-8 py-4 text-white
-    md:static md:bottom-auto md:h-32 md:flex-row md:items-center md:justify-around md:px-12 "
+      className={cn(
+        " grid grid-cols-1 grid-rows-1 justify-items-center text-white ",
+        noto.className,
+      )}
     >
-      <div className="flex justify-between ">
+      <motion.ul
+        animate={{
+          opacity: isOpen ? 100 : 0,
+          display: isOpen ? "flex" : "none",
+          height: isOpen ? "38rem" : "0",
+          width: isOpen ? "100%" : "90%",
+        }}
+        initial={{
+          opacity: 0,
+          display: "none",
+          height: 0,
+          width: "90%",
+        }}
+        transition={{ duration: 0.5 }}
+        className="fixed bottom-0  hidden w-full flex-col  gap-3
+        rounded-md bg-primary/95 px-12 py-6 text-2xl text-primary-foreground"
+      >
+        {navItems.map((item, index) => (
+          <div className="flex w-full flex-col items-end " key={index}>
+            <Link className=" " href={""}>
+              {item}
+            </Link>
+            <div className="mt-4 h-[1px] w-full bg-white/50" />
+          </div>
+        ))}
+      </motion.ul>
+      <div className=" fixed bottom-0 flex w-full flex-grow  justify-between bg-primary px-4 py-4 ">
         <Logo />
         <div
           className="flex h-[50px] w-[80px] cursor-pointer flex-col items-center justify-center md:hidden "
@@ -45,7 +73,7 @@ function Navigation() {
             className={barClassName}
             animate={{
               rotate: isOpen ? 45 : 0,
-              y: isOpen ? 13 : 0,
+              y: isOpen ? 10 : 0,
             }}
             transition={{ duration: 0.3 }}
           />
@@ -60,36 +88,12 @@ function Navigation() {
             className={barClassName}
             animate={{
               rotate: isOpen ? -45 : 0,
-              y: isOpen ? -13 : 0,
+              y: isOpen ? -10 : 0,
             }}
             transition={{ duration: 0.3 }}
           />
         </div>
       </div>
-      <motion.div
-        animate={{
-          opacity: isOpen ? 100 : 0,
-          display: isOpen ? "flex" : "none",
-          height: isOpen ? "55vh" : "0",
-        }}
-        initial={{
-          opacity: 0,
-          display: "none",
-          height: 0,
-        }}
-        transition={{ duration: 0.3 }}
-        className={cn(
-          `w-full flex-col items-center space-y-6 overflow-hidden text-center
-          text-2xl md:w-auto  md:flex-row-reverse md:gap-8 md:space-y-0 md:text-3xl `,
-          noto.className,
-        )}
-      >
-        {navItems.map((item, index) => (
-          <Link className="" href={""} key={index}>
-            {item}
-          </Link>
-        ))}
-      </motion.div>
     </nav>
   );
 }
