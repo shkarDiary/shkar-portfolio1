@@ -32,8 +32,8 @@ function Navigation() {
 
   return (
     <nav
-      className="flex   w-screen flex-col gap-6 overflow-hidden bg-primary px-8
-    py-4 text-white md:h-32 md:flex-row md:items-center md:justify-around md:px-12 "
+      className="fixed bottom-0 flex w-screen flex-col  gap-6 overflow-hidden bg-primary px-8 py-4 text-white
+    md:static md:bottom-auto md:h-32 md:flex-row md:items-center md:justify-around md:px-12 "
     >
       <div className="flex justify-between ">
         <Logo />

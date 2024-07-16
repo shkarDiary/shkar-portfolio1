@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 
 const useScreenSize = () => {
   const [screenSize, setScreenSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: 0,
+    height: 0,
   });
 
   useEffect(() => {
@@ -14,13 +14,19 @@ const useScreenSize = () => {
       });
     };
 
-    window.addEventListener("resize", handleResize);
+    // Check if window is defined to avoid SSR issues
+    if (typeof window !== "undefined") {
+      setScreenSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+      window.addEventListener("resize", handleResize);
 
-    // Clean up the event listener when the component unmounts
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+      // Cleanup event listener on component unmount
+      return () => window.removeEventListener("resize", handleResize);
+    }
   }, []);
+
   if (screenSize.width < 768) {
     return "sm";
   } else {
