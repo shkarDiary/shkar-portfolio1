@@ -17,7 +17,7 @@ const navItems = [
   "گەلەری",
   "وەرزش",
 ];
-const barClassName = "w-[30px] h-[2px] bg-white my-[4px] ";
+const barClassName = "w-[25px] h-[1.5px] bg-white my-[3px] ";
 function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const size = useMediaQuery();
@@ -50,7 +50,7 @@ function Navigation() {
           height: 0,
           width: "90%",
         }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.3 }}
         className="fixed bottom-0  hidden w-full flex-col  gap-3
         rounded-md bg-primary/95 px-12 py-6 text-2xl text-primary-foreground"
       >
@@ -63,7 +63,7 @@ function Navigation() {
           </div>
         ))}
       </motion.ul>
-      <div className=" fixed bottom-0 flex w-full flex-grow  justify-between bg-primary px-4 py-4 ">
+      <div className=" fixed bottom-0 flex w-full items-center  justify-between bg-primary px-4 py-2 ">
         <Logo />
         <div
           className="flex h-[50px] w-[80px] cursor-pointer flex-col items-center justify-center md:hidden "
@@ -73,7 +73,7 @@ function Navigation() {
             className={barClassName}
             animate={{
               rotate: isOpen ? 45 : 0,
-              y: isOpen ? 10 : 0,
+              y: isOpen ? 7 : 0,
             }}
             transition={{ duration: 0.3 }}
           />
@@ -88,7 +88,7 @@ function Navigation() {
             className={barClassName}
             animate={{
               rotate: isOpen ? -45 : 0,
-              y: isOpen ? -10 : 0,
+              y: isOpen ? -7 : 0,
             }}
             transition={{ duration: 0.3 }}
           />
